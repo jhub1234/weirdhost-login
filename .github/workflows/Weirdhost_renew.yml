@@ -3,7 +3,6 @@ name: Weirdhost 多账号自动续期
 
 on:
   schedule:
-    # 每天北京时间 12:20
     - cron: '20 4 * * *'
   workflow_dispatch:
 
@@ -40,7 +39,6 @@ jobs:
 
       - name: 运行续期脚本
         env:
-          ACCOUNTS: ${{ secrets.WEIRDHOST_ACCOUNTS }}
           WEIRDHOST_COOKIE_1: ${{ secrets.WEIRDHOST_COOKIE_1 }}
           WEIRDHOST_COOKIE_2: ${{ secrets.WEIRDHOST_COOKIE_2 }}
           WEIRDHOST_COOKIE_3: ${{ secrets.WEIRDHOST_COOKIE_3 }}
@@ -50,7 +48,6 @@ jobs:
           TG_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
           REPO_TOKEN: ${{ secrets.REPO_TOKEN }}
           GITHUB_REPOSITORY: ${{ github.repository }}
-          RENEW_THRESHOLD_DAYS: "2"  # 到期前几天才续期
         run: |
           xvfb-run --auto-servernum --server-args="-screen 0 1920x1080x24" python scripts/weirdhost_renew.py
 
